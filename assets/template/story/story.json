@@ -1,0 +1,8 @@
+{
+  "title": "My chibi video",
+  "audio": "assets/song.wav",
+  "duration": 10,
+  "beat": { "period": 0.5, "first": 0 },
+  "night": [],
+  "shots": [["s01", null], ["s02", 9]]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chibi Video"
+  short_description: "Turn your friends and a song into a beat-synced chibi cartoon"
+  default_prompt: "Use $chibi-video to make a chibi cartoon of my friends set to this song."

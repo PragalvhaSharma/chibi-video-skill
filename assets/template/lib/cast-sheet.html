@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/chibi.js"></script>
+    <script src="assets/cast.js"></script>
+    <style>
+      @font-face { font-family: "Mochiy Pop One"; src: url("assets/fonts/MochiyPopOne-subset.ttf") format("truetype"); }
+      @font-face { font-family: "Vultures Gothic"; src: url("assets/fonts/Vultures-subset.ttf") format("truetype"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #E4CD86; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .panel { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 42%, #EFDFA6 0%, #E4CD86 58%, #D5BB6D 100%); }
+      .abs { position: absolute; }
+      .actor { position: absolute; transform-origin: 50% 91.18%; }
+      .actor > svg { display: block; overflow: visible; }
+      .photo { position: absolute; border: 6px solid #1d1a17; border-radius: 22px; overflow: hidden; box-shadow: 8px 10px 0 rgba(29, 26, 23, 0.25); background: #222; }
+      .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .name { position: absolute; text-align: center; font-family: "Mochiy Pop One", sans-serif; font-size: 34px; color: #1d1a17; }
+      .note { position: absolute; text-align: center; font-family: -apple-system, "Helvetica Neue", sans-serif; font-size: 20px; line-height: 1.3; color: #2e2718; }
+      #grain { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; mix-blend-mode: multiply; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1920" data-height="1080">
+      <div id="lineup" class="panel clip" data-start="0" data-duration="1" data-track-index="0"></div>
+      <img id="grain" class="clip" src="assets/paper.png" alt="" data-start="0" data-duration="1" data-track-index="1" data-layout-allow-occlusion />
+    </div>
+    <script>
+      (function () {
+        var keys = Chibi.ORDER, n = Math.max(keys.length, 1), step = 1920 / n, s = Math.min(1.25, step / 215), ph = Math.min(210, step - 34), h = "";
+        keys.forEach(function (k, i) {
+          var c = Chibi.CAST[k], cx = step * (i + 0.5);
+          if (c.ref) h += '<div class="photo" style="left:' + (cx - ph / 2) + "px;top:34px;width:" + ph + "px;height:" + ph + 'px"><img src="' + c.ref + '" alt=""></div>';
+          h += Chibi.actor(k, { id: "l-" + k, x: cx, y: 790, s: s });
+          h += '<div class="name" style="left:' + (cx - step / 2) + "px;top:812px;width:" + step + 'px">' + String(c.name || k).toUpperCase() + "</div>";
+          if (c.note) h += '<div class="note" style="left:' + (cx - step / 2 + 8) + "px;top:864px;width:" + (step - 16) + 'px">' + c.note + "</div>";
+        });
+        document.getElementById("lineup").innerHTML = h;
+        window.__timelines["main"] = gsap.timeline({ paused: true });
+      })();
+    </script>
+  </body>
+</html>
